@@ -2,6 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css"> <!-- 共通CSSファイルをリンク -->
 <style>
   body {
     font-family: 'Arial', sans-serif;
@@ -90,8 +91,10 @@
   </div>
 
   <div class="navigation">
-    <button type="button" onclick="location.href='page4.html'">前に戻る</button>
-    <button type="button" onclick="goNextPage()">次に進む</button>
+    <!-- 前に戻るボタン -->
+    <button type="button" class="large-button" onclick="location.href='page4.html'">前に戻る</button>
+    <!-- 次に進むボタン -->
+    <button type="button" class="large-button" onclick="goNextPage()">次に進む</button>
   </div>
 </div>
 

@@ -37,6 +37,33 @@
     margin-left: 5px;
     width: 150px;
   }
+
+  /* ボタンを大きくするための共通クラス */
+  .large-button {
+    font-size: 1.2em; /* フォントサイズを大きく */
+    padding: 15px 30px; /* パディングを増やしてボタン自体を大きく */
+    border-radius: 8px; /* 角を丸くする（オプション） */
+    background-color: #4CAF50; /* 背景色（お好みで変更可） */
+    color: white; /* テキスト色 */
+    border: none; /* ボーダーをなくす */
+    cursor: pointer; /* ホバー時にポインターに */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* ホバー時のアニメーション */
+  }
+
+  /* ボタンホバー時の効果 */
+  .large-button:hover {
+    background-color: #45a049; /* ホバー時の背景色 */
+    transform: scale(1.05); /* ホバー時にボタンを少し大きく */
+  }
+
+  /* レスポンシブデザインの調整 */
+  @media (max-width: 768px) {
+    .large-button {
+      width: 100%; /* 小さい画面ではボタンを幅いっぱいに */
+      padding: 12px 0; /* パディングを調整 */
+      font-size: 1em; /* フォントサイズを調整 */
+    }
+  }
 </style>
 </head>
 <body>
@@ -114,8 +141,10 @@
   </div>
 
   <div class="navigation">
-    <button type="button" onclick="location.href='page3.html'">前に戻る</button>
-    <button type="button" onclick="validateAndProceed()">次に進む</button>
+    <!-- 前に戻るボタン -->
+    <button type="button" class="large-button" onclick="location.href='page3.html'">前に戻る</button>
+    <!-- 次に進むボタン -->
+    <button type="button" class="large-button" onclick="validateAndProceed()">次に進む</button>
   </div>
 </div>
 

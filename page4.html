@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<style>
+  body {
+    font-family: 'Arial', sans-serif;
+    padding: 20px;
+  }
+  .page-container {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .navigation {
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .question {
+    margin-top: 20px;
+  }
+  .question-label {
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .options {
+    margin: 10px 0;
+  }
+
+  .option-item {
+    margin-bottom: 5px;
+  }
+  .option-item input[type="text"] {
+    margin-left: 5px;
+    width: 150px;
+  }
+</style>
+</head>
+<body>
+
+<div class="page-container">
+  <p><strong>■以下の説明をお読みいただいた後、設問にお答えください。</strong></p>
+
+  <p>これから、仮想的な取り組みを設定して、あなたのご意向をお伺いします。</p>
+
+  <p>まず、以下のことを想定してください。<br>
+  １）あなたのお住まいの近くには、公園や堤防など、定期的な草刈りを必要とする公共の場所があるとします。これらの場所で草が生い茂ると、景観の悪化だけでなく、害虫の発生や防犯上の問題、さらには災害時の避難経路の確保にも支障をきたす可能性があります。<br>
+  ２）この問題を解決するために、地域清掃の一環として、地域住民が協力して『草刈り』を実施します。住民同士が協力することで、コミュニティの絆が深まり、地域の安全性や住みやすさが向上します。<br>
+  ３）刈り取った草は、これまで廃棄物として処理されていましたが、専門業者に委託して発電施設の原料として活用します。これにより、廃棄物が再生可能エネルギーの資源となり、環境負荷の軽減につながります。<br>
+  ４）この取り組みにより、行政が業者に支払っていた草の刈り取り費用や焼却費用が節約されます。これらのコスト削減は、行政が他の重要なサービスやインフラに資金を充てることを可能にします。<br>
+  ５）発電施設で生み出された電気は、行政施設で使用されます。これにより、行政が電力会社に支払う電気代が節約され、さらに環境に優しいエネルギーの利用が促進されます。</p>
+
+  <div class="question" id="question4">
+    <span class="question-label">【問４】あなたがこの取り組みによって認識する価値を知るために、仮想的な質問をさせていただきます。実際にあなたに金銭の支払いを求めるものではありませんが、仮にこの取り組みに金銭の支援が求められた場合、あなたは年間いくら支払ってもよいと考えますか。次の選択肢の中から、あてはまるものを1つ選択してください。</span>
+    <div class="options">
+      <div class="option-item"><label><input type="radio" name="q4" value="0yen_value"> 年間0円（価値を感じるが、支払いたくない）</label></div>
+      <div class="option-item"><label><input type="radio" name="q4" value="0yen_no_value"> 年間0円（価値を感じない）</label></div>
+      <div class="option-item"><label><input type="radio" name="q4" value="100-299"> 年間100円～299円</label></div>
+      <div class="option-item"><label><input type="radio" name="q4" value="300-499"> 年間300円～499円</label></div>
+      <div class="option-item"><label><input type="radio" name="q4" value="500-699"> 年間500円～699円</label></div>
+      <div class="option-item"><label><input type="radio" name="q4" value="700-999"> 年間700円～999円</label></div>
+      <div class="option-item"><label><input type="radio" name="q4" value="1000-2999"> 年間1,000円～2,999円</label></div>
+      <div class="option-item"><label><input type="radio" name="q4" value="3000-4999"> 年間3,000円～4,999円</label></div>
+      <div class="option-item"><label><input type="radio" name="q4" value="5000-6999"> 年間5,000円～6,999円</label></div>
+      <div class="option-item"><label><input type="radio" name="q4" value="7000-9999"> 年間7,000円～9,999円</label></div>
+      <div class="option-item"><label><input type="radio" name="q4" value="10000-29999"> 年間10,000円～29,999円</label></div>
+      <div class="option-item"><label><input type="radio" name="q4" value="30000-49999"> 年間30,000円～49,999円</label></div>
+      <div class="option-item"><label><input type="radio" name="q4" value="50000-69999"> 年間50,000円～69,999円</label></div>
+      <div class="option-item"><label><input type="radio" name="q4" value="70000-99999"> 年間70,000円～99,999円</label></div>
+      <div class="option-item">
+        <label><input type="radio" name="q4" value="other"> その他（具体的に：年間</label>
+        <input type="text" name="q4_other_amount" placeholder="円程度">
+        <label>）</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="question" id="question5">
+    <span class="question-label">【問５】<u>先の質問【問４】とは関係なく</u>、別の視点から、あなたがこの取り組みによって認識する価値を知るために、仮想的な質問をさせていただきます。実際にあなたにボランティアの草刈り作業を求めるものではありませんが、仮にこの取り組みについてあなたにボランティアの支援が求められた場合、あなたは年間どれくらい草刈り作業してもよいと考えますか。次の選択肢の中から、あてはまるものを1つ選択してください。なお、草刈り作業に必要な道具等については、取り組み団体が準備します。</span>
+    <div class="options">
+      <div class="option-item"><label><input type="radio" name="q5" value="0times_value"> 年間0回（価値を感じるが、草刈り作業したくない）</label></div>
+      <div class="option-item"><label><input type="radio" name="q5" value="0times_no_value"> 年間0回（価値を感じない）</label></div>
+      <div class="option-item"><label><input type="radio" name="q5" value="1time_30-59"> 年間1回、1回あたり30分～59分</label></div>
+      <div class="option-item"><label><input type="radio" name="q5" value="1time_60-89"> 年間1回、1回あたり60分～89分</label></div>
+      <div class="option-item"><label><input type="radio" name="q5" value="1time_90-119"> 年間1回、1回あたり90分～119分</label></div>
+      <div class="option-item"><label><input type="radio" name="q5" value="1time_120-149"> 年間1回、1回あたり120分～149分</label></div>
+
+      <div class="option-item"><label><input type="radio" name="q5" value="2times_30-59"> 年間2回、1回あたり30分～59分</label></div>
+      <div class="option-item"><label><input type="radio" name="q5" value="2times_60-89"> 年間2回、1回あたり60分～89分</label></div>
+      <div class="option-item"><label><input type="radio" name="q5" value="2times_90-119"> 年間2回、1回あたり90分～119分</label></div>
+      <div class="option-item"><label><input type="radio" name="q5" value="2times_120-149"> 年間2回、1回あたり120分～149分</label></div>
+
+      <div class="option-item"><label><input type="radio" name="q5" value="3times_30-59"> 年間3回、1回あたり30分～59分</label></div>
+      <div class="option-item"><label><input type="radio" name="q5" value="3times_60-89"> 年間3回、1回あたり60分～89分</label></div>
+      <div class="option-item"><label><input type="radio" name="q5" value="3times_90-119"> 年間3回、1回あたり90分～119分</label></div>
+      <div class="option-item"><label><input type="radio" name="q5" value="3times_120-149"> 年間3回、1回あたり120分～149分</label></div>
+
+      <div class="option-item"><label><input type="radio" name="q5" value="4times_30-59"> 年間4回、1回あたり30分～59分</label></div>
+      <div class="option-item"><label><input type="radio" name="q5" value="4times_60-89"> 年間4回、1回あたり60分～89分</label></div>
+      <div class="option-item"><label><input type="radio" name="q5" value="4times_90-119"> 年間4回、1回あたり90分～119分</label></div>
+      <div class="option-item"><label><input type="radio" name="q5" value="4times_120-149"> 年間4回、1回あたり120分～149分</label></div>
+
+      <div class="option-item">
+        <label><input type="radio" name="q5" value="other"> その他（具体的に：年間</label>
+        <input type="text" name="q5_other_times" placeholder="回" style="width:50px;">
+        、1回あたり
+        <input type="text" name="q5_other_minutes" placeholder="分" style="width:50px;">
+        程度）
+      </div>
+    </div>
+  </div>
+
+  <div class="navigation">
+    <button type="button" onclick="location.href='page3.html'">前に戻る</button>
+    <button type="button" onclick="validateAndProceed()">次に進む</button>
+  </div>
+</div>
+
+<script>
+  /**
+   * 【問４】と【問５】に回答があるかを検証し、必要に応じて「その他」の入力も確認します。
+   * 回答が不足している場合はアラートを表示し、ページ遷移を中断します。
+   */
+  function validateAndProceed() {
+    // 【問４】の選択肢を取得
+    const q4Selected = document.querySelector('input[name="q4"]:checked');
+    // 【問５】の選択肢を取得
+    const q5Selected = document.querySelector('input[name="q5"]:checked');
+
+    let errorMessages = [];
+
+    // 【問４】が選択されていない場合
+    if (!q4Selected) {
+      errorMessages.push("【問４】に回答してください。");
+    } else if (q4Selected.value === "other") {
+      // 【問４】で「その他」を選択した場合、金額入力が必要
+      const q4OtherAmount = document.querySelector('input[name="q4_other_amount"]').value.trim();
+      if (q4OtherAmount === "") {
+        errorMessages.push("【問４】の「その他」を選択した場合、具体的な金額を入力してください。");
+      } else if (isNaN(q4OtherAmount)) {
+        errorMessages.push("【問４】の金額には数字を入力してください。");
+      }
+    }
+
+    // 【問５】が選択されていない場合
+    if (!q5Selected) {
+      errorMessages.push("【問５】に回答してください。");
+    } else if (q5Selected.value === "other") {
+      // 【問５】で「その他」を選択した場合、回数と分数の入力が必要
+      const q5OtherTimes = document.querySelector('input[name="q5_other_times"]').value.trim();
+      const q5OtherMinutes = document.querySelector('input[name="q5_other_minutes"]').value.trim();
+
+      if (q5OtherTimes === "") {
+        errorMessages.push("【問５】の「その他」を選択した場合、具体的な年間回数を入力してください。");
+      } else if (isNaN(q5OtherTimes)) {
+        errorMessages.push("【問５】の年間回数には数字を入力してください。");
+      }
+
+      if (q5OtherMinutes === "") {
+        errorMessages.push("【問５】の「その他」を選択した場合、1回あたりの分数を入力してください。");
+      } else if (isNaN(q5OtherMinutes)) {
+        errorMessages.push("【問５】の1回あたりの分数には数字を入力してください。");
+      }
+    }
+
+    if (errorMessages.length > 0) {
+      // エラーメッセージを表示
+      alert(errorMessages.join("\n"));
+      return; // 処理を中断
+    }
+
+    // 全ての質問に回答がある場合、必要に応じて「その他」の入力を含めてパラメータを設定
+    let params = new URLSearchParams();
+
+    // 【問４】の値
+    if (q4Selected.value === "other") {
+      const q4OtherAmount = document.querySelector('input[name="q4_other_amount"]').value.trim();
+      params.set('q4', `その他: ${q4OtherAmount}円`);
+    } else {
+      params.set('q4', q4Selected.value);
+    }
+
+    // 【問５】の値
+    if (q5Selected.value === "other") {
+      const q5OtherTimes = document.querySelector('input[name="q5_other_times"]').value.trim();
+      const q5OtherMinutes = document.querySelector('input[name="q5_other_minutes"]').value.trim();
+      params.set('q5', `その他: 年間${q5OtherTimes}回、1回あたり${q5OtherMinutes}分`);
+    } else {
+      params.set('q5', q5Selected.value);
+    }
+
+    // 次のページへパラメータを渡して遷移
+    location.href = 'page5.html?' + params.toString();
+  }
+</script>
+
+</body>
+</html>

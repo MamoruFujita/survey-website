@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<style>
+  body {
+    font-family: 'Arial', sans-serif;
+    padding: 20px;
+  }
+  .page-container {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .navigation {
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .navigation button:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+
+  .question {
+    margin-top: 20px;
+  }
+  .question-label {
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .options {
+    margin: 10px 0;
+  }
+
+  .option-item {
+    margin-bottom: 5px;
+  }
+</style>
+</head>
+<body>
+
+<div class="page-container">
+  <p><strong>■以下の説明をお読みいただいた後、設問にお答えください。</strong></p>
+
+  <p>現在、各地の町内会や自治会では、堤防・公園・街路を対象とした草刈りや落ち葉集めなど、地域美化を目的とした地域清掃が行われています。</p>
+
+  <!-- 【問１】 -->
+  <div class="question" id="question1">
+    <span class="question-label">【問１】今現在、あなたのお住まいの地域にこのような地域清掃活動がありますか。あてはまるものを１つ選んでください。</span>
+    <div class="options">
+      <div class="option-item"><label><input type="radio" name="q1" value="1"> 1.定期的にある</label></div>
+      <div class="option-item"><label><input type="radio" name="q1" value="2"> 2.不定期にある</label></div>
+      <div class="option-item"><label><input type="radio" name="q1" value="3"> 3.かつてはあったが今はない</label></div>
+      <div class="option-item"><label><input type="radio" name="q1" value="4"> 4.ない</label></div>
+      <div class="option-item"><label><input type="radio" name="q1" value="5"> 5.あるかどうかわからない</label></div>
+    </div>
+  </div>
+
+  <!-- 【問２】 -->
+  <div class="question" id="question2">
+    <span class="question-label">【問２】今までに、このような取り組みに、あなたは参加・協力したことがありますか。活動の有無に関わらず、あてはまるものを１つ選んでください。</span>
+    <div class="options">
+      <div class="option-item"><label><input type="radio" name="q2" value="1"> 1.欠かさず参加したい</label></div>
+      <div class="option-item"><label><input type="radio" name="q2" value="2"> 2.ほぼ毎回参加した</label></div>
+      <div class="option-item"><label><input type="radio" name="q2" value="3"> 3.数回程度参加した</label></div>
+      <div class="option-item"><label><input type="radio" name="q2" value="4"> 4.一回だけ参加した</label></div>
+      <div class="option-item"><label><input type="radio" name="q2" value="5"> 5.全く参加していない</label></div>
+    </div>
+  </div>
+
+  <div class="navigation">
+    <button type="button" onclick="location.href='page1.html'">前に戻る</button>
+    <button type="button" onclick="validateAndProceed()">次に進む</button>
+  </div>
+</div>
+
+<script>
+  /**
+   * 全ての必須質問に回答があるかを検証し、次のページへ遷移します。
+   * 回答が不足している場合はアラートを表示します。
+   */
+  function validateAndProceed() {
+    // 【問１】の選択肢を取得
+    const q1Selected = document.querySelector('input[name="q1"]:checked');
+    // 【問２】の選択肢を取得
+    const q2Selected = document.querySelector('input[name="q2"]:checked');
+
+    let errorMessages = [];
+
+    // 【問１】が選択されていない場合
+    if (!q1Selected) {
+      errorMessages.push("【問１】に回答してください。");
+    }
+
+    // 【問２】が選択されていない場合
+    if (!q2Selected) {
+      errorMessages.push("【問２】に回答してください。");
+    }
+
+    if (errorMessages.length > 0) {
+      // エラーメッセージを表示
+      alert(errorMessages.join("\n"));
+      return; // 処理を中断
+    }
+
+    // 全ての質問に回答がある場合、次のページへ遷移
+    location.href = 'page3.html';
+  }
+</script>
+
+</body>
+</html>

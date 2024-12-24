@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<style>
+  body {
+    font-family: 'Arial', sans-serif;
+    padding: 20px;
+  }
+  .page-container {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .navigation {
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .navigation button:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+</style>
+</head>
+<body>
+
+<div class="page-container">
+  <center><h1>温暖化対策と地域活性化に寄与する<br>ボランティア活動に関する意識調査<br>＜調査票＞</h1></center>
+
+  <p>このアンケート調査は、○○県に居住されている方々からボランティア活動に関するお考えを賜り、今後の事業の検討に役立てることを目的とするものです。<br><br>
+  なお、このアンケートにご記入された内容はすべて統計的に処理され、この目的以外に使われることはありません。したがって、ご記入された方々にご迷惑をお掛けするようなことは一切ありません。<br><br>
+  ご多忙の中、大変恐縮ではございますが、ご協力のほどよろしくお願い申し上げます。<br><br>
+  令和６年１２月<br>
+  名城大学都市情報学部教授　大野栄治
+  </p>
+
+  <div class="navigation">
+    <!-- 前に戻るボタン（1ページ目なので無効化または非表示） -->
+    <button type="button" disabled>前に戻る</button>
+    <!-- 次に進むボタン（次のページへ移動） -->
+    <button type="button" onclick="location.href='page2.html'">次に進む</button>
+  </div>
+</div>
+
+</body>
+</html>

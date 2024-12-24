@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<style>
+  body {
+    font-family: 'Arial', sans-serif;
+    padding: 20px;
+  }
+  .page-container {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .navigation {
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .question {
+    margin-top: 20px;
+  }
+  .question-label {
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .options {
+    margin: 10px 0;
+  }
+
+  .option-item {
+    margin-bottom: 5px;
+  }
+
+  /* イラストのスタイル */
+  .illustration {
+    width: 512px; /* 横幅を512pxに指定 */
+    max-width: 100%; /* 画面サイズに応じて縮小 */
+    height: auto; /* アスペクト比を維持 */
+    display: block;
+    margin: 0 auto 30px; /* 中央揃えと下部の余白 */
+  }
+  /* レスポンシブデザイン */
+  @media (max-width: 768px) {
+    .slider-container {
+      width: 100%; /* スライダの幅を親要素に合わせる */
+    }
+
+    .illustration {
+      width: 100%; /* スマートフォンなど小さい画面では幅を100%に */
+      max-width: 512px; /* 最大幅を512pxに設定 */
+    }
+  }
+
+</style>
+</head>
+<body>
+
+<div class="page-container">
+  <p>このような地域清掃で集められた刈り草や落ち葉は、焼却施設で燃やされていますが、以下の問題があります。<br>
+  ・運搬費用と焼却費用がかかります。<br>
+  ・焼却時に二酸化炭素（※）が発生します。<br>
+  ・焼却施設の容量に限界があり、一般ごみの焼却に支障が出るところもあります。<br>
+  （※）二酸化炭素は温暖化の原因とされています。<br><br>
+
+  一方、刈り草や落ち葉をそのまま放置すると、別の問題が生じます。<br>
+  ・微生物の分解で発酵が進み、メタン（※）が発生します<br>
+  （※）メタンも温暖化の原因とされていますが、温暖化の効果は二酸化炭素の約28倍に相当します。<br>
+  しかし、メタンは天然ガスの主成分であり、燃やすと電気や熱を得ることができます。つまり、刈り草や落ち葉から発生するメタンは再生可能エネルギーとして活用できます。<br>
+  ・回収したメタンを燃やすことにより、電気や熱を得ることができます。<br>
+  ・メタンを燃やすと水と二酸化炭素が発生しますが、メタンをそのまま放出するよりも温暖化の効果は約1/28になります。</p>
+
+  <figure>
+    <img src="images/illustration.png" alt="清掃活動のイメージ図" class="illustration">
+    <figcaption><center>図1: 清掃活動の概要</center></figcaption>
+  </figure>
+
+
+  <!-- 【問３】 -->
+  <div class="question" id="question3">
+    <span class="question-label">【問３】この説明について、あなたは理解できましたか。あてはまるものを１つ選んでください。</span>
+    <div class="options">
+      <div class="option-item"><label><input type="radio" name="q3" value="1"> 1.よく理解できた</label></div>
+      <div class="option-item"><label><input type="radio" name="q3" value="2"> 2.まあまあ理解できた</label></div>
+      <div class="option-item"><label><input type="radio" name="q3" value="3"> 3.なんとなく理解できた</label></div>
+      <div class="option-item"><label><input type="radio" name="q3" value="4"> 4.少し理解できた</label></div>
+      <div class="option-item"><label><input type="radio" name="q3" value="5"> 5.よく理解できなかった</label></div>
+    </div>
+  </div>
+
+  <div class="navigation">
+    <button type="button" onclick="location.href='page2.html'">前に戻る</button>
+    <button type="button" onclick="validateAndProceed()">次に進む</button>
+  </div>
+</div>
+
+<script>
+  /**
+   * 【問３】に回答があるかを検証し、次のページへ遷移します。
+   * 回答が不足している場合はアラートを表示します。
+   */
+  function validateAndProceed() {
+    // 【問３】の選択肢を取得
+    const q3Selected = document.querySelector('input[name="q3"]:checked');
+
+    let errorMessages = [];
+
+    // 【問３】が選択されていない場合
+    if (!q3Selected) {
+      errorMessages.push("【問３】に回答してください。");
+    }
+
+    if (errorMessages.length > 0) {
+      // エラーメッセージを表示
+      alert(errorMessages.join("\n"));
+      return; // 処理を中断
+    }
+
+    // 全ての質問に回答がある場合、次のページへ遷移
+    location.href = 'page4.html';
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>選択条件確認画面</title>
+<style>
+  body {
+    font-family: 'Arial', sans-serif;
+    padding: 20px;
+  }
+  .page-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .selected-conditions {
+    margin-top: 40px;
+    font-size: 16px;
+    line-height: 1.6;
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 5px;
+  }
+  .navigation {
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+  }
+</style>
+</head>
+<body>
+<div class="page-container">
+  <h2>選択した条件の確認</h2>
+  <p>以下の条件でよろしいですか？</p>
+  <div class="selected-conditions" id="selected-conditions"></div>
+
+  <div class="navigation">
+    <button type="button" onclick="history.back()">戻る</button>
+    <button type="button" onclick="location.href='end.html'">確定</button>
+  </div>
+</div>
+
+<script>
+  const params = new URLSearchParams(location.search);
+
+  const dist  = params.get('dist')  || '10分〜10分';
+  const time  = params.get('time')  || '120分〜120分';
+  const count = params.get('count') || '2回〜2回';
+  const pay   = params.get('pay')   || '0円〜0円';
+
+  function formatRangeText(rangeText) {
+    if (!rangeText.includes('〜')) return rangeText;
+    const parts = rangeText.split('〜');
+    if (parts.length === 2) {
+      const leftVal = parts[0].trim();
+      const rightVal= parts[1].trim();
+      if (leftVal === rightVal) return leftVal;
+      return leftVal + '〜' + rightVal;
+    }
+    return rangeText;
+  }
+
+  let html = '<strong>あなたが選択した条件:</strong><br>';
+  html += `1. 活動場所までの移動時間： 徒歩${formatRangeText(dist)}<br>`;
+  html += `2. 一回の活動時間： ${formatRangeText(time)}<br>`;
+  html += `3. 年間の活動回数： ${formatRangeText(count)}<br>`;
+  html += `4. 活動参加によって得られる謝礼： ${formatRangeText(pay)}<br>`;
+
+  document.getElementById('selected-conditions').innerHTML = html;
+</script>
+</body>
+</html>

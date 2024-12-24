@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<style>
+  body {
+    font-family: 'Arial', sans-serif;
+    padding: 20px;
+  }
+
+  .slider-label {
+    margin-bottom: 80px; /* 見出しとスライダの間隔を広く */
+    font-weight: bold;
+    font-size: 16px;
+  }
+
+  .slider-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 80px; /* 行間を広げる */
+  }
+
+  .slider-container {
+    position: relative;
+    width: 600px; /* 横幅 */
+    height: 25px; 
+    background: #ddd;
+    border-radius: 5px;
+  }
+
+  .slider-handle {
+    position: absolute;
+    width: 20px; 
+    height: 40px; 
+    background: #000;
+    cursor: grab;
+    top: -12px; /* ハンドルをバー中央に */
+    border-radius: 3px;
+  }
+
+  .slider-handle .handle-value {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333;
+    color: #fff;
+    padding: 2px 5px;
+    border-radius: 3px;
+    white-space: nowrap;
+    font-size: 12px;
+    margin-bottom: 12px;
+  }
+
+  .handle-value.unlimited {
+    color: red; /* 上限なしのときは赤字表示で強調 */
+  }
+
+  .range {
+    position: absolute;
+    height: 100%;
+    background: #999;
+    top: 0;
+    border-radius: 5px;
+  }
+
+  .slider-output {
+    margin-left: 20px;
+    white-space: nowrap;
+    font-size: 14px;
+  }
+</style>
+</head>
+<body>
+
+<div class="slider-label">移動距離（1〜60分）</div>
+<div class="slider-row">
+  <div class="slider-container">
+    <div id="range1" class="range"></div>
+    <div id="slider1-left" class="slider-handle">
+      <span class="handle-value"></span>
+    </div>
+    <div id="slider1-right" class="slider-handle">
+      <span class="handle-value"></span>
+    </div>
+  </div>
+  <div class="slider-output">
+    選択範囲: <span id="output1"></span>
+  </div>
+</div>
+
+<div class="slider-label">作業時間（10〜240分）</div>
+<div class="slider-row">
+  <div class="slider-container">
+    <div id="range2" class="range"></div>
+    <div id="slider2-left" class="slider-handle">
+      <span class="handle-value"></span>
+    </div>
+    <div id="slider2-right" class="slider-handle">
+      <span class="handle-value"></span>
+    </div>
+  </div>
+  <div class="slider-output">
+    選択範囲: <span id="output2"></span>
+  </div>
+</div>
+
+<div class="slider-label">作業回数（1〜12回）</div>
+<div class="slider-row">
+  <div class="slider-container">
+    <div id="range3" class="range"></div>
+    <div id="slider3-left" class="slider-handle">
+      <span class="handle-value"></span>
+    </div>
+    <div id="slider3-right" class="slider-handle">
+      <span class="handle-value"></span>
+    </div>
+  </div>
+  <div class="slider-output">
+    選択範囲: <span id="output3"></span>
+  </div>
+</div>
+
+<div class="slider-label">謝礼（100〜3000円）</div>
+<div class="slider-row">
+  <div class="slider-container">
+    <div id="range4" class="range"></div>
+    <div id="slider4-left" class="slider-handle">
+      <span class="handle-value"></span>
+    </div>
+    <div id="slider4-right" class="slider-handle">
+      <span class="handle-value"></span>
+    </div>
+  </div>
+  <div class="slider-output">
+    選択範囲: <span id="output4"></span>
+  </div>
+</div>
+
+<script>
+    const snapThreshold = 10; // 右端10pxで上限なしへスナップ
+
+    const distanceAllowedValues = [1,5,10,15,20,25,30,35,40,45,50,55,60];
+
+    const sliders = [
+        { left: 'slider1-left', right: 'slider1-right', range: 'range1', min: 1, max: 60, output: 'output1', unit: '分', unlimited: true, customStep: 'distance' },
+        { left: 'slider2-left', right: 'slider2-right', range: 'range2', min: 10, max: 240, output: 'output2', unit: '分', unlimited: true, step: 10 },
+        { left: 'slider3-left', right: 'slider3-right', range: 'range3', min: 1, max: 12, output: 'output3', unit: '回', unlimited: true, step: 1 },
+        { left: 'slider4-left', right: 'slider4-right', range: 'range4', min: 100, max: 3000, output: 'output4', unit: '円', unlimited: false, step: 100 }
+    ];
+
+    function makeDraggable(sliderConfig) {
+        const leftSlider = document.getElementById(sliderConfig.left);
+        const rightSlider = document.getElementById(sliderConfig.right);
+        const range = document.getElementById(sliderConfig.range);
+        const output = document.getElementById(sliderConfig.output);
+        const container = leftSlider.parentElement;
+
+        const containerWidth = container.clientWidth;
+        const handleWidth = leftSlider.offsetWidth;
+        const availableWidth = containerWidth - handleWidth;
+
+        let isDragging = false, currentSlider;
+        let startX = 0, startLeft = 0;
+
+        function stepRound(value) {
+            if (sliderConfig.customStep === 'distance') {
+                // 移動距離用の特別な丸め処理
+                let closest = distanceAllowedValues[0];
+                let minDiff = Math.abs(value - closest);
+                for (let v of distanceAllowedValues) {
+                    let diff = Math.abs(value - v);
+                    if (diff < minDiff) {
+                        minDiff = diff;
+                        closest = v;
+                    }
+                }
+                return closest;
+            } else {
+                // 通常のstep処理
+                let stepped = Math.round((value - sliderConfig.min) / sliderConfig.step) * sliderConfig.step + sliderConfig.min;
+                // 範囲外ならクランプ
+                if (stepped > sliderConfig.max) stepped = sliderConfig.max;
+                if (stepped < sliderConfig.min) stepped = sliderConfig.min;
+                return stepped;
+            }
+        }
+
+        function positionToValue(pos) {
+            const ratio = pos / availableWidth;
+            let value = sliderConfig.min + (sliderConfig.max - sliderConfig.min) * ratio;
+            return stepRound(value);
+        }
+
+        function isRightAtMaxPos(pos) {
+            return Math.abs(pos - availableWidth) < 0.0001;
+        }
+
+        function updateRange() {
+            const leftPos = parseFloat(leftSlider.style.left) || 0;
+            const rightPos = parseFloat(rightSlider.style.left) || availableWidth;
+
+            range.style.left = `${leftPos}px`;
+            range.style.width = `${rightPos - leftPos}px`;
+
+            const leftVal = positionToValue(leftPos);
+            const rightVal = positionToValue(rightPos);
+
+            let rightValText;
+            let rightHandleValueElem = rightSlider.querySelector('.handle-value');
+            if (sliderConfig.unlimited) {
+                if (isRightAtMaxPos(rightPos)) {
+                    rightValText = "上限なし";
+                    // 上限なし時はテキスト色変え
+                    rightHandleValueElem.classList.add('unlimited');
+                } else {
+                    rightValText = `${rightVal}${sliderConfig.unit}`;
+                    rightHandleValueElem.classList.remove('unlimited');
+                }
+            } else {
+                rightValText = `${rightVal}${sliderConfig.unit}`;
+                rightHandleValueElem.classList.remove('unlimited');
+            }
+
+            if (sliderConfig.unlimited && rightValText === "上限なし") {
+                output.textContent = `${leftVal}${sliderConfig.unit} 〜 上限なし`;
+            } else {
+                output.textContent = `${leftVal}${sliderConfig.unit} 〜 ${rightValText}`;
+            }
+
+            leftSlider.querySelector('.handle-value').textContent = `${leftVal}${sliderConfig.unit}`;
+            rightHandleValueElem.textContent = rightValText;
+        }
+
+        function onMouseMove(e) {
+            if (!isDragging) return;
+            const dx = e.clientX - startX;
+            const leftPos = parseFloat(leftSlider.style.left) || 0;
+            const rightPos = parseFloat(rightSlider.style.left) || availableWidth;
+
+            if (currentSlider === leftSlider) {
+                const newLeft = Math.max(0, Math.min(startLeft + dx, rightPos - handleWidth));
+                leftSlider.style.left = `${newLeft}px`;
+            } else if (currentSlider === rightSlider) {
+                let newLeft = Math.min(availableWidth, Math.max(startLeft + dx, leftPos + handleWidth));
+                // unlimitedの場合、右端近くでスナップ
+                if (sliderConfig.unlimited) {
+                    if (newLeft > (availableWidth - snapThreshold)) {
+                        newLeft = availableWidth;
+                    }
+                }
+                rightSlider.style.left = `${newLeft}px`;
+            }
+            updateRange();
+        }
+
+        function onMouseUp() {
+            isDragging = false;
+            document.body.style.cursor = 'default';
+            document.removeEventListener('mousemove', onMouseMove);
+            document.removeEventListener('mouseup', onMouseUp);
+        }
+
+        [leftSlider, rightSlider].forEach(slider => {
+            slider.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                currentSlider = slider;
+                startX = e.clientX;
+                startLeft = parseFloat(slider.style.left) || 0;
+                document.body.style.cursor = 'grabbing';
+                document.addEventListener('mousemove', onMouseMove);
+                document.addEventListener('mouseup', onMouseUp);
+            });
+        });
+
+        leftSlider.style.left = `0px`;
+        rightSlider.style.left = `${availableWidth}px`;
+        updateRange();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        sliders.forEach(makeDraggable);
+    });
+</script>
+
+</body>
+</html>

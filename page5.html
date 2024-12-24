@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<style>
+  body {
+    font-family: 'Arial', sans-serif;
+    padding: 20px;
+  }
+  .page-container {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .navigation {
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .question {
+    margin-top: 20px;
+  }
+  .question-label {
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: block;
+  }
+  .options {
+    margin: 10px 0;
+  }
+  .option-item {
+    margin-bottom: 5px;
+  }
+  #q7-container {
+    display: none;
+    margin-top: 20px;
+  }
+</style>
+</head>
+<body>
+
+<div class="page-container">
+  <p><strong>■参加条件についての質問（謝礼なし）</strong></p>
+  <p>
+    仮に、以下の条件で清掃ボランティア活動が実施されるとします。<br>
+    清掃活動の条件：<br>
+    1. 活動場所までの移動時間： 徒歩10分<br>
+    2. 一回の活動時間： 120分<br>
+    3. 年間の活動回数： 2回（春・秋）<br>
+    4. 活動参加によって得られる謝礼： なし<br>
+    ただし、参加人数については活動をするうえで差し支えなく集まるものとします。
+  </p>
+
+  <div class="question">
+    <span class="question-label">【問６】この清掃活動に、あなたは参加したいですか。あてはまるものを１つ選んでください。</span>
+    <div class="options">
+      <!-- 参加したい -->
+      <div class="option-item">
+        <label><input type="radio" name="q6" value="参加したい" onclick="toggleQ7(false)"> 参加したい</label>
+      </div>
+
+      <!-- 参加したくない(理由を選ぶ) -->
+      <div class="option-item">
+        <label><input type="radio" name="q6" value="参加したくない" onclick="toggleQ7(true)"> 参加したくない（理由を選ぶ）</label>
+      </div>
+
+      <!-- 無条件で参加したくない -->
+      <div class="option-item">
+        <label><input type="radio" name="q6" value="無条件で参加したくない" onclick="toggleQ7(false)"> 無条件で参加したくない</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- 参加したくない(理由を選ぶ) を選んだ場合のみ表示する問7 -->
+  <div id="q7-container" class="question">
+    <span class="question-label">【問７】前の質問の条件のうち、参加をためらう要因となる項目をすべて選んでください。（複数選択可）</span>
+    <div class="options">
+      <div class="option-item">
+        <label><input type="checkbox" name="q7[]" value="distance"> 活動場所までの移動時間</label>
+      </div>
+      <div class="option-item">
+        <label><input type="checkbox" name="q7[]" value="time"> 一回の活動時間</label>
+      </div>
+      <div class="option-item">
+        <label><input type="checkbox" name="q7[]" value="count"> 年間の活動回数</label>
+      </div>
+      <div class="option-item">
+        <label><input type="checkbox" name="q7[]" value="payment"> 活動参加によって得られる謝礼</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="navigation">
+    <button type="button" onclick="location.href='page4.html'">前に戻る</button>
+    <button type="button" onclick="goNextPage()">次に進む</button>
+  </div>
+</div>
+
+<script>
+  let isWantToJoin = false;
+
+  function toggleQ7(show) {
+    const q7Container = document.getElementById('q7-container');
+    if (show) {
+      // 「参加したくない(理由を選ぶ)」が選ばれた
+      q7Container.style.display = 'block';
+      isWantToJoin = false;
+    } else {
+      // 「参加したい」 or 「無条件で参加したくない」
+      q7Container.style.display = 'none';
+      isWantToJoin = true;
+    }
+  }
+
+  function goNextPage() {
+    const q6Val = document.querySelector('input[name="q6"]:checked');
+    if (!q6Val) {
+      alert("【問６】に回答してください。");
+      return;
+    }
+
+    if (q6Val.value === "参加したい") {
+      // 参加したい → 満足条件を問うページへ
+      location.href = 'page6_forSatisfaction.html';
+      return;
+    }
+
+    if (q6Val.value === "参加したくない") {
+      // 「参加したくない(理由を選ぶ)」の場合、問７チェックが必須
+      const q7Checks = document.querySelectorAll('input[name="q7[]"]:checked');
+      if (q7Checks.length === 0) {
+        // エラー
+        alert("【問７】で、少なくとも1つは選択してください。");
+        return; // 中断
+      }
+      // 選択された要因を factors に渡す
+      let selectedValues = [];
+      q7Checks.forEach(chk => {
+        selectedValues.push(chk.value);
+      });
+      const params = new URLSearchParams();
+      params.set('factors', selectedValues.join(','));
+
+      // 要因スライダ(page6.html)へ遷移
+      location.href = 'page6.html?' + params.toString();
+      return;
+    }
+
+    if (q6Val.value === "無条件で参加したくない") {
+      // 無条件 → end へ飛ぶ or 別のフロー
+      location.href = 'end.html';
+      return;
+    }
+  }
+</script>
+
+</body>
+</html>

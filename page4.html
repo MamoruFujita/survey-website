@@ -3,69 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="styles.css"> <!-- 共通CSSファイルをリンク -->
-<style>
-  body {
-    font-family: 'Arial', sans-serif;
-    padding: 20px;
-  }
-  .page-container {
-    max-width: 600px;
-    margin: 0 auto;
-  }
-  .navigation {
-    margin-top: 40px;
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .question {
-    margin-top: 20px;
-  }
-  .question-label {
-    font-weight: bold;
-    margin-bottom: 10px;
-    display: block;
-  }
-
-  .options {
-    margin: 10px 0;
-  }
-
-  .option-item {
-    margin-bottom: 5px;
-  }
-  .option-item input[type="text"] {
-    margin-left: 5px;
-    width: 150px;
-  }
-
-  /* ボタンを大きくするための共通クラス */
-  .large-button {
-    font-size: 1.2em; /* フォントサイズを大きく */
-    padding: 15px 30px; /* パディングを増やしてボタン自体を大きく */
-    border-radius: 8px; /* 角を丸くする（オプション） */
-    background-color: #4CAF50; /* 背景色（お好みで変更可） */
-    color: white; /* テキスト色 */
-    border: none; /* ボーダーをなくす */
-    cursor: pointer; /* ホバー時にポインターに */
-    transition: background-color 0.3s ease, transform 0.2s ease; /* ホバー時のアニメーション */
-  }
-
-  /* ボタンホバー時の効果 */
-  .large-button:hover {
-    background-color: #45a049; /* ホバー時の背景色 */
-    transform: scale(1.05); /* ホバー時にボタンを少し大きく */
-  }
-
-  /* レスポンシブデザインの調整 */
-  @media (max-width: 768px) {
-    .large-button {
-      width: 100%; /* 小さい画面ではボタンを幅いっぱいに */
-      padding: 12px 0; /* パディングを調整 */
-      font-size: 1em; /* フォントサイズを調整 */
-    }
-  }
-</style>
 </head>
 <body>
 
@@ -84,22 +21,80 @@
   <div class="question" id="question4">
     <span class="question-label">【問４】あなたがこの取り組みによって認識する価値を知るために、仮想的な質問をさせていただきます。実際にあなたに金銭の支払いを求めるものではありませんが、仮にこの取り組みに金銭の支援が求められた場合、あなたは年間いくら支払ってもよいと考えますか。次の選択肢の中から、あてはまるものを1つ選択してください。</span>
     <div class="options">
-      <div class="option-item"><label><input type="radio" name="q4" value="0yen_value"> 年間0円（価値を感じるが、支払いたくない）</label></div>
-      <div class="option-item"><label><input type="radio" name="q4" value="0yen_no_value"> 年間0円（価値を感じない）</label></div>
-      <div class="option-item"><label><input type="radio" name="q4" value="100-299"> 年間100円～299円</label></div>
-      <div class="option-item"><label><input type="radio" name="q4" value="300-499"> 年間300円～499円</label></div>
-      <div class="option-item"><label><input type="radio" name="q4" value="500-699"> 年間500円～699円</label></div>
-      <div class="option-item"><label><input type="radio" name="q4" value="700-999"> 年間700円～999円</label></div>
-      <div class="option-item"><label><input type="radio" name="q4" value="1000-2999"> 年間1,000円～2,999円</label></div>
-      <div class="option-item"><label><input type="radio" name="q4" value="3000-4999"> 年間3,000円～4,999円</label></div>
-      <div class="option-item"><label><input type="radio" name="q4" value="5000-6999"> 年間5,000円～6,999円</label></div>
-      <div class="option-item"><label><input type="radio" name="q4" value="7000-9999"> 年間7,000円～9,999円</label></div>
-      <div class="option-item"><label><input type="radio" name="q4" value="10000-29999"> 年間10,000円～29,999円</label></div>
-      <div class="option-item"><label><input type="radio" name="q4" value="30000-49999"> 年間30,000円～49,999円</label></div>
-      <div class="option-item"><label><input type="radio" name="q4" value="50000-69999"> 年間50,000円～69,999円</label></div>
-      <div class="option-item"><label><input type="radio" name="q4" value="70000-99999"> 年間70,000円～99,999円</label></div>
       <div class="option-item">
-        <label><input type="radio" name="q4" value="other"> その他（具体的に：年間</label>
+        <label>
+          <input type="radio" name="q4" value="0yen_value"> 年間0円（価値を感じるが、支払いたくない）
+        </label>
+      </div>
+      <div class="option-item">
+        <label>
+          <input type="radio" name="q4" value="0yen_no_value"> 年間0円（価値を感じない）
+        </label>
+      </div>
+      <div class="option-item">
+        <label>
+          <input type="radio" name="q4" value="100-299"> 年間100円<span class="small-text">～299円</span>
+        </label>
+      </div>
+      <div class="option-item">
+        <label>
+          <input type="radio" name="q4" value="300-499"> 年間300円<span class="small-text">～499円</span>
+        </label>
+      </div>
+      <div class="option-item">
+        <label>
+          <input type="radio" name="q4" value="500-699"> 年間500円<span class="small-text">～699円</span>
+        </label>
+      </div>
+      <div class="option-item">
+        <label>
+          <input type="radio" name="q4" value="700-999"> 年間700円<span class="small-text">～999円</span>
+        </label>
+      </div>
+      <div class="option-item">
+        <label>
+          <input type="radio" name="q4" value="1000-2999"> 年間1,000円<span class="small-text">～2,999円</span>
+        </label>
+      </div>
+      <div class="option-item">
+        <label>
+          <input type="radio" name="q4" value="3000-4999"> 年間3,000円<span class="small-text">～4,999円</span>
+        </label>
+      </div>
+      <div class="option-item">
+        <label>
+          <input type="radio" name="q4" value="5000-6999"> 年間5,000円<span class="small-text">～6,999円</span>
+        </label>
+      </div>
+      <div class="option-item">
+        <label>
+          <input type="radio" name="q4" value="7000-9999"> 年間7,000円<span class="small-text">～9,999円</span>
+        </label>
+      </div>
+      <div class="option-item">
+        <label>
+          <input type="radio" name="q4" value="10000-29999"> 年間10,000円<span class="small-text">～29,999円</span>
+        </label>
+      </div>
+      <div class="option-item">
+        <label>
+          <input type="radio" name="q4" value="30000-49999"> 年間30,000円<span class="small-text">～49,999円</span>
+        </label>
+      </div>
+      <div class="option-item">
+        <label>
+          <input type="radio" name="q4" value="50000-69999"> 年間50,000円<span class="small-text">～69,999円</span>
+        </label>
+      </div>
+      <div class="option-item">
+        <label>
+          <input type="radio" name="q4" value="70000-99999"> 年間70,000円<span class="small-text">～99,999円</span>
+        </label>
+      </div>
+      <div class="option-item">
+        <label>
+          <input type="radio" name="q4" value="other"> その他（具体的に：年間
+        </label>
         <input type="text" name="q4_other_amount" placeholder="円程度">
         <label>）</label>
       </div>
@@ -109,30 +104,104 @@
   <div class="question" id="question5">
     <span class="question-label">【問５】<u>先の質問【問４】とは関係なく</u>、別の視点から、あなたがこの取り組みによって認識する価値を知るために、仮想的な質問をさせていただきます。実際にあなたにボランティアの草刈り作業を求めるものではありませんが、仮にこの取り組みについてあなたにボランティアの支援が求められた場合、あなたは年間どれくらい草刈り作業してもよいと考えますか。次の選択肢の中から、あてはまるものを1つ選択してください。なお、草刈り作業に必要な道具等については、取り組み団体が準備します。</span>
     <div class="options">
-      <div class="option-item"><label><input type="radio" name="q5" value="0times_value"> 年間0回（価値を感じるが、草刈り作業したくない）</label></div>
-      <div class="option-item"><label><input type="radio" name="q5" value="0times_no_value"> 年間0回（価値を感じない）</label></div>
-      <div class="option-item"><label><input type="radio" name="q5" value="1time_30-59"> 年間1回、1回あたり30分～59分</label></div>
-      <div class="option-item"><label><input type="radio" name="q5" value="1time_60-89"> 年間1回、1回あたり60分～89分</label></div>
-      <div class="option-item"><label><input type="radio" name="q5" value="1time_90-119"> 年間1回、1回あたり90分～119分</label></div>
-      <div class="option-item"><label><input type="radio" name="q5" value="1time_120-149"> 年間1回、1回あたり120分～149分</label></div>
-
-      <div class="option-item"><label><input type="radio" name="q5" value="2times_30-59"> 年間2回、1回あたり30分～59分</label></div>
-      <div class="option-item"><label><input type="radio" name="q5" value="2times_60-89"> 年間2回、1回あたり60分～89分</label></div>
-      <div class="option-item"><label><input type="radio" name="q5" value="2times_90-119"> 年間2回、1回あたり90分～119分</label></div>
-      <div class="option-item"><label><input type="radio" name="q5" value="2times_120-149"> 年間2回、1回あたり120分～149分</label></div>
-
-      <div class="option-item"><label><input type="radio" name="q5" value="3times_30-59"> 年間3回、1回あたり30分～59分</label></div>
-      <div class="option-item"><label><input type="radio" name="q5" value="3times_60-89"> 年間3回、1回あたり60分～89分</label></div>
-      <div class="option-item"><label><input type="radio" name="q5" value="3times_90-119"> 年間3回、1回あたり90分～119分</label></div>
-      <div class="option-item"><label><input type="radio" name="q5" value="3times_120-149"> 年間3回、1回あたり120分～149分</label></div>
-
-      <div class="option-item"><label><input type="radio" name="q5" value="4times_30-59"> 年間4回、1回あたり30分～59分</label></div>
-      <div class="option-item"><label><input type="radio" name="q5" value="4times_60-89"> 年間4回、1回あたり60分～89分</label></div>
-      <div class="option-item"><label><input type="radio" name="q5" value="4times_90-119"> 年間4回、1回あたり90分～119分</label></div>
-      <div class="option-item"><label><input type="radio" name="q5" value="4times_120-149"> 年間4回、1回あたり120分～149分</label></div>
+      <div class="option-item">
+        <label>
+          <input type="radio" name="q5" value="0times_value"> 年間0回（価値を感じるが、草刈り作業したくない）
+        </label>
+      </div>
+      <div class="option-item">
+        <label>
+          <input type="radio" name="q5" value="0times_no_value"> 年間0回（価値を感じない）
+        </label>
+      </div>
+      <div class="option-item">
+        <label>
+          <input type="radio" name="q5" value="1time_30-59"> 年間1回、1回あたり30分<span class="small-text">～59分</span>
+        </label>
+      </div>
+      <div class="option-item">
+        <label>
+          <input type="radio" name="q5" value="1time_60-89"> 年間1回、1回あたり60分<span class="small-text">～89分</span>
+        </label>
+      </div>
+      <div class="option-item">
+        <label>
+          <input type="radio" name="q5" value="1time_90-119"> 年間1回、1回あたり90分<span class="small-text">～119分</span>
+        </label>
+      </div>
+      <div class="option-item">
+        <label>
+          <input type="radio" name="q5" value="1time_120-149"> 年間1回、1回あたり120分<span class="small-text">～149分</span>
+        </label>
+      </div>
 
       <div class="option-item">
-        <label><input type="radio" name="q5" value="other"> その他（具体的に：年間</label>
+        <label>
+          <input type="radio" name="q5" value="2times_30-59"> 年間2回、1回あたり30分<span class="small-text">～59分</span>
+        </label>
+      </div>
+      <div class="option-item">
+        <label>
+          <input type="radio" name="q5" value="2times_60-89"> 年間2回、1回あたり60分<span class="small-text">～89分</span>
+        </label>
+      </div>
+      <div class="option-item">
+        <label>
+          <input type="radio" name="q5" value="2times_90-119"> 年間2回、1回あたり90分<span class="small-text">～119分</span>
+        </label>
+      </div>
+      <div class="option-item">
+        <label>
+          <input type="radio" name="q5" value="2times_120-149"> 年間2回、1回あたり120分<span class="small-text">～149分</span>
+        </label>
+      </div>
+
+      <div class="option-item">
+        <label>
+          <input type="radio" name="q5" value="3times_30-59"> 年間3回、1回あたり30分<span class="small-text">～59分</span>
+        </label>
+      </div>
+      <div class="option-item">
+        <label>
+          <input type="radio" name="q5" value="3times_60-89"> 年間3回、1回あたり60分<span class="small-text">～89分</span>
+        </label>
+      </div>
+      <div class="option-item">
+        <label>
+          <input type="radio" name="q5" value="3times_90-119"> 年間3回、1回あたり90分<span class="small-text">～119分</span>
+        </label>
+      </div>
+      <div class="option-item">
+        <label>
+          <input type="radio" name="q5" value="3times_120-149"> 年間3回、1回あたり120分<span class="small-text">～149分</span>
+        </label>
+      </div>
+
+      <div class="option-item">
+        <label>
+          <input type="radio" name="q5" value="4times_30-59"> 年間4回、1回あたり30分<span class="small-text">～59分</span>
+        </label>
+      </div>
+      <div class="option-item">
+        <label>
+          <input type="radio" name="q5" value="4times_60-89"> 年間4回、1回あたり60分<span class="small-text">～89分</span>
+        </label>
+      </div>
+      <div class="option-item">
+        <label>
+          <input type="radio" name="q5" value="4times_90-119"> 年間4回、1回あたり90分<span class="small-text">～119分</span>
+        </label>
+      </div>
+      <div class="option-item">
+        <label>
+          <input type="radio" name="q5" value="4times_120-149"> 年間4回、1回あたり120分<span class="small-text">～149分</span>
+        </label>
+      </div>
+
+      <div class="option-item">
+        <label>
+          <input type="radio" name="q5" value="other"> その他（具体的に：年間
+        </label>
         <input type="text" name="q5_other_times" placeholder="回" style="width:50px;">
         、1回あたり
         <input type="text" name="q5_other_minutes" placeholder="分" style="width:50px;">

@@ -66,4 +66,11 @@ body {
   .large-button:focus {
     outline: 3px solid #555; /* フォーカス時のアウトラインを追加 */
   }
-  
+  /* styles.css */
+
+/* 既存のスタイル... */
+
+/* 小さなテキスト用クラス */
+.small-text {
+  font-size: 0.8em; /* 必要に応じて調整可能 */
+}

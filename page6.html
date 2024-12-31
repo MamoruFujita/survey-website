@@ -1,152 +1,158 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<link rel="stylesheet" href="styles.css"> <!-- 共通CSSファイルをリンク -->
-<title>スライダページ(6ページ目)</title>
-<style>
-  body {
-    font-family: 'Arial', sans-serif;
-    padding: 20px;
-  }
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="styles.css"> <!-- 共通CSSファイルをリンク -->
+  <title>満足条件と参加可能な下限と上限の設問（問6：条件付き参加）</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      padding: 20px;
+    }
 
-  .page-container {
-    max-width: 800px;
-    margin: 0 auto;
-  }
+    .page-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
 
-  .slider-label {
-    margin-bottom: 50px; 
-    font-weight: bold;
-    font-size: 16px;
-  }
+    .section-title {
+      font-weight: bold;
+      font-size: 18px;
+      margin-top: 40px;
+      margin-bottom: 10px;
+    }
 
-  .slider-row {
-    display: flex;
-    align-items: center;
-    margin-bottom: 90px; 
-  }
+    .slider-label {
+      margin-bottom: 50px; 
+      font-weight: bold;
+      font-size: 16px;
+    }
 
-  .slider-container {
-    position: relative;
-    width: 600px; 
-    height: 25px; 
-    background: #ddd;
-    border-radius: 5px;
-  }
+    .slider-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 90px; 
+    }
 
-  /* 全ハンドルの基本CSS */
-  .slider-handle {
-    position: absolute;
-    width: 20px; 
-    height: 40px; 
-    cursor: grab;
-    top: -12px; 
-    border-radius: 3px;
-    z-index: 2; /* ハンドルを前面に */
-  }
+    .slider-container {
+      position: relative;
+      width: 600px; 
+      height: 25px; 
+      background: #ddd;
+      border-radius: 5px;
+    }
 
-  /* 左ハンドル(最小)を青系 */
-  .left-handle {
-    background: #1e90ff; 
-  }
-  /* 右ハンドル(最大)を赤系 */
-  .right-handle {
-    background: #ff6347;
-  }
+    /* ハンドルの共通CSS */
+    .slider-handle {
+      position: absolute;
+      width: 20px; 
+      height: 40px; 
+      cursor: grab;
+      top: -12px; 
+      border-radius: 3px;
+      z-index: 2; /* ハンドルを前面に */
+    }
+    /* 左ハンドル(最小)を青系 */
+    .left-handle {
+      background: #1e90ff; 
+    }
+    /* 右ハンドル(最大)を赤系 */
+    .right-handle {
+      background: #ff6347;
+    }
 
-  .slider-handle .handle-value {
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #333;
-    color: #fff;
-    padding: 2px 5px;
-    border-radius: 3px;
-    white-space: nowrap;
-    font-size: 12px;
-    margin-bottom: 12px;
-  }
+    .slider-handle .handle-value {
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: #fff;
+      padding: 2px 5px;
+      border-radius: 3px;
+      white-space: nowrap;
+      font-size: 12px;
+      margin-bottom: 12px;
+    }
 
-  .handle-value.unlimited {
-    color: red; 
-  }
+    .range {
+      position: absolute;
+      height: 100%;
+      background: #999;
+      top: 0;
+      border-radius: 5px;
+      z-index: 1;
+    }
 
-  .range {
-    position: absolute;
-    height: 100%;
-    background: #999;
-    top: 0;
-    border-radius: 5px;
-  }
+    .slider-output {
+      margin-left: 20px;
+      white-space: nowrap;
+      font-size: 14px;
+    }
 
-  .slider-output {
-    margin-left: 20px;
-    white-space: nowrap;
-    font-size: 14px;
-  }
+    .marker {
+      position: absolute;
+      top: 0;
+      width: 2px;
+      height: 100%;
+      background: rgba(0,0,0,0.3);
+    }
 
-  .slider-section {
-    display: none;
-  }
+    .navigation {
+      margin-top: 40px;
+      display: flex;
+      justify-content: space-between;
+    }
 
-  .marker {
-    position: absolute;
-    top: 0;
-    width: 2px;
-    height: 100%;
-    background: rgba(0,0,0,0.3);
-  }
+    .selected-conditions {
+      margin-top: 40px;
+      font-size: 16px;
+      line-height: 1.6;
+      background: #f9f9f9;
+      padding: 20px;
+      border-radius: 5px;
+    }
 
-  .navigation {
-    margin-top: 40px;
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .selected-conditions {
-    margin-top: 40px;
-    font-size: 16px;
-    line-height: 1.6;
-    background: #f9f9f9;
-    padding: 20px;
-    border-radius: 5px;
-  }
-</style>
+    /* スライダセクション初期は非表示にし、JavaScriptで必要なものだけ表示 */
+    .slider-section {
+      display: none;
+    }
+  </style>
 </head>
 <body>
 
 <div class="page-container">
-  <p><strong>■参加をためらう要因についての質問</strong></p>
-  <p><b>【問８】参加をためらう要因として選んだ項目について、ご自身が満足する条件を具体的に選択してください。</b></p>
-  <p>
-    参考：清掃活動の条件<br>
+
+  <!-- (A) 「チェックされた要因」用セクション -->
+  <div class="section-title">■参加をためらう要因（満足条件を具体的に選択）</div>
+  <p><b>【問８】参加をためらう要因として選んだ項目について、ご自身が満足する条件を具体的にお答えください。</b></p>
+  <p>参考：清掃活動の条件<br>
     1. 活動場所までの移動時間： 徒歩10分<br>
     2. 一回の活動時間： 120分<br>
     3. 年間の活動回数： 2回（春・秋）<br>
     4. 活動参加によって得られる謝礼： なし (0円相当)
   </p>
 
-  <!-- 移動距離スライダ -->
+  <!-- 移動距離スライダ (チェックされた要因) -->
   <div id="distance-section" class="slider-section">
-    <div class="slider-label">1. 活動場所までの移動時間（1〜60分）</div>
+    <div class="slider-label">移動距離（1〜60分）</div>
     <div class="slider-row">
       <div class="slider-container">
         <div id="range1" class="range"></div>
-        <!-- 左=left-handle, 右=right-handle -->
         <div id="slider1-left"  class="slider-handle left-handle"><span class="handle-value"></span></div>
         <div id="slider1-right" class="slider-handle right-handle"><span class="handle-value"></span></div>
-        <!-- 参考マーカー(15.3%) -->
+        <!-- 参考マーカー(例:10分=15.3%) -->
         <div class="marker" style="left:15.3%;"></div>
       </div>
-      <div class="slider-output">選択範囲: <span id="output1"></span></div>
+      <div class="slider-output">
+        選択範囲: <span id="output1"></span>
+      </div>
     </div>
   </div>
 
-  <!-- 作業時間スライダ -->
+  <!-- 作業時間スライダ (チェックされた要因) -->
   <div id="time-section" class="slider-section">
-    <div class="slider-label">2. 一回の活動時間（10〜240分）</div>
+    <div class="slider-label">作業時間（10〜240分）</div>
     <div class="slider-row">
       <div class="slider-container">
         <div id="range2" class="range"></div>
@@ -154,13 +160,15 @@
         <div id="slider2-right" class="slider-handle right-handle"><span class="handle-value"></span></div>
         <div class="marker" style="left:47.8%;"></div>
       </div>
-      <div class="slider-output">選択範囲: <span id="output2"></span></div>
+      <div class="slider-output">
+        選択範囲: <span id="output2"></span>
+      </div>
     </div>
   </div>
 
-  <!-- 作業回数スライダ -->
+  <!-- 回数スライダ (チェックされた要因) -->
   <div id="count-section" class="slider-section">
-    <div class="slider-label">3. 年間の活動回数（1〜12回）</div>
+    <div class="slider-label">年間の活動回数（1〜12回）</div>
     <div class="slider-row">
       <div class="slider-container">
         <div id="range3" class="range"></div>
@@ -168,13 +176,15 @@
         <div id="slider3-right" class="slider-handle right-handle"><span class="handle-value"></span></div>
         <div class="marker" style="left:9.09%;"></div>
       </div>
-      <div class="slider-output">選択範囲: <span id="output3"></span></div>
+      <div class="slider-output">
+        選択範囲: <span id="output3"></span>
+      </div>
     </div>
   </div>
 
-  <!-- 謝礼スライダ -->
+  <!-- 謝礼スライダ (チェックされた要因) -->
   <div id="payment-section" class="slider-section">
-    <div class="slider-label">4. 活動参加によって得られる謝礼（100〜3000円）</div>
+    <div class="slider-label">謝礼（100〜3000円）</div>
     <div class="slider-row">
       <div class="slider-container">
         <div id="range4" class="range"></div>
@@ -182,11 +192,78 @@
         <div id="slider4-right" class="slider-handle right-handle"><span class="handle-value"></span></div>
         <div class="marker" style="left:0%;"></div>
       </div>
-      <div class="slider-output">選択範囲: <span id="output4"></span></div>
+      <div class="slider-output">
+        選択範囲: <span id="output4"></span>
+      </div>
     </div>
   </div>
 
-  <div class="selected-conditions" id="selected-conditions"></div>
+  <!-- (B) 他の要因も(チェックされなかった要因)表示 -->
+  <div class="section-title">■他の要因（未選択だが仮定条件を含むように調整可能）</div>
+  <p>チェックされなかった要因も、条件次第では参加を断念する場合があるかもしれません。<br>
+    そこで各項目について、<span style="color:blue;">左ハンドル</span>を「これより小さい(短い/少ない)と参加しにくい」下限、<br>
+    <span style="color:red;">右ハンドル</span>を「これより大きい(長い/多い)と参加しにくい」上限としてお答えください。<br>
+    <br>※清掃活動の元条件を下回らない・上回らない範囲で調整してください。</p>
+
+  <!-- 移動距離スライダ(他の要因) -->
+  <div id="distance-other" class="slider-section">
+    <div class="slider-label">移動距離（1〜60分）</div>
+    <div class="slider-row">
+      <div class="slider-container">
+        <div id="range1-other" class="range"></div>
+        <div id="slider1-other-left"  class="slider-handle left-handle"><span class="handle-value"></span></div>
+        <div id="slider1-other-right" class="slider-handle right-handle"><span class="handle-value"></span></div>
+      </div>
+      <div class="slider-output">
+        選択範囲: <span id="output1-other"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 作業時間スライダ(他の要因) -->
+  <div id="time-other" class="slider-section">
+    <div class="slider-label">作業時間（10〜240分）</div>
+    <div class="slider-row">
+      <div class="slider-container">
+        <div id="range2-other" class="range"></div>
+        <div id="slider2-other-left"  class="slider-handle left-handle"><span class="handle-value"></span></div>
+        <div id="slider2-other-right" class="slider-handle right-handle"><span class="handle-value"></span></div>
+      </div>
+      <div class="slider-output">
+        選択範囲: <span id="output2-other"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 回数スライダ(他の要因) -->
+  <div id="count-other" class="slider-section">
+    <div class="slider-label">年間の活動回数（1〜12回）</div>
+    <div class="slider-row">
+      <div class="slider-container">
+        <div id="range3-other" class="range"></div>
+        <div id="slider3-other-left"  class="slider-handle left-handle"><span class="handle-value"></span></div>
+        <div id="slider3-other-right" class="slider-handle right-handle"><span class="handle-value"></span></div>
+      </div>
+      <div class="slider-output">
+        選択範囲: <span id="output3-other"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 謝礼スライダ(他の要因) -->
+  <div id="payment-other" class="slider-section">
+    <div class="slider-label">謝礼（100〜3000円）</div>
+    <div class="slider-row">
+      <div class="slider-container">
+        <div id="range4-other" class="range"></div>
+        <div id="slider4-other-left"  class="slider-handle left-handle"><span class="handle-value"></span></div>
+        <div id="slider4-other-right" class="slider-handle right-handle"><span class="handle-value"></span></div>
+      </div>
+      <div class="slider-output">
+        選択範囲: <span id="output4-other"></span>
+      </div>
+    </div>
+  </div>
 
   <div class="navigation">
     <button type="button" class="large-button" onclick="location.href='page5.html'">前に戻る</button>
@@ -195,222 +272,249 @@
 </div>
 
 <script>
-  const snapThreshold = 10; 
-  const distanceAllowedValues = [1,5,10,15,20,25,30,35,40,45,50,55,60];
+/*
+  1. page5 から "?factors=..." を取得
+  2. チェックされた要因 => (A)満足条件セクション
+  3. チェックされなかった要因 => (B)他の要因セクション
+  4. スライダ初期位置: 左端=0px, 右端=availableWidth
+  5. 満足条件(チェックされた要因)には移動制限なし (noClamp=true)
+  6. 他の要因には従来通りクランプする (noClamp=false)
+*/
 
-  // デフォルト(参考値) 設定
-  const defaultDistance = "10分〜10分";
-  const defaultTime = "120分〜120分";
-  const defaultCount = "2回〜2回";
-  const defaultPay = "0円〜0円";
+const allFactors = ["distance","time","count","payment"];
 
-  const sliders = [
-    { left: 'slider1-left', right: 'slider1-right', range: 'range1', min: 1, max: 60, output: 'output1', unit: '分', unlimited: true, customStep: 'distance' },
-    { left: 'slider2-left', right: 'slider2-right', range: 'range2', min: 10, max: 240, output: 'output2', unit: '分', unlimited: true, step: 10 },
-    { left: 'slider3-left', right: 'slider3-right', range: 'range3', min: 1, max: 12, output: 'output3', unit: '回', unlimited: true, step: 1 },
-    { left: 'slider4-left', right: 'slider4-right', range: 'range4', min: 100, max: 3000, output: 'output4', unit: '円', unlimited: false, step: 100 }
-  ];
+// URLパラメータ解析
+const params = new URLSearchParams(location.search);
+const factors = params.get('factors') || "";
+let selectedFactors = (factors!=="") ? factors.split(',') : [];
 
-  const params = new URLSearchParams(location.search);
-  const factors = params.get('factors'); 
-  let selectedFactors = [];
-  if (factors) {
-    selectedFactors = factors.split(',');
+// (A) 満足条件(チェックされた要因)
+selectedFactors.forEach(fac => {
+  if(fac==="distance"){ document.getElementById('distance-section').style.display="block"; }
+  if(fac==="time"){     document.getElementById('time-section').style.display="block"; }
+  if(fac==="count"){    document.getElementById('count-section').style.display="block"; }
+  if(fac==="payment"){  document.getElementById('payment-section').style.display="block"; }
+});
+
+// (B) 他の要因(未選択)
+const notSelected = allFactors.filter(x => !selectedFactors.includes(x));
+notSelected.forEach(fac => {
+  if(fac==="distance"){ document.getElementById('distance-other').style.display="block"; }
+  if(fac==="time"){     document.getElementById('time-other').style.display="block"; }
+  if(fac==="count"){    document.getElementById('count-other').style.display="block"; }
+  if(fac==="payment"){  document.getElementById('payment-other').style.display="block"; }
+});
+
+// ▼ slidersForSelected: 満足条件 (noClamp=true)
+const slidersForSelected = [
+  // distance
+  { left:'slider1-left', right:'slider1-right', range:'range1',
+    min:1, max:60, output:'output1',
+    unit:'分', unlimited:true, customStep:'distance',
+    original:10, noClamp:true
+  },
+  // time
+  { left:'slider2-left', right:'slider2-right', range:'range2',
+    min:10, max:240, output:'output2',
+    unit:'分', unlimited:true, step:10,
+    original:120, noClamp:true
+  },
+  // count
+  { left:'slider3-left', right:'slider3-right', range:'range3',
+    min:1, max:12, output:'output3',
+    unit:'回', unlimited:true, step:1,
+    original:2, noClamp:true
+  },
+  // pay
+  { left:'slider4-left', right:'slider4-right', range:'range4',
+    min:0, max:3000, output:'output4',
+    unit:'円', unlimited:false, step:100,
+    original:0, noClamp:true
   }
+];
 
-  selectedFactors.forEach(factor => {
-    if (factor === 'distance') { document.getElementById('distance-section').style.display = 'block'; }
-    if (factor === 'time') { document.getElementById('time-section').style.display = 'block'; }
-    if (factor === 'count') { document.getElementById('count-section').style.display = 'block'; }
-    if (factor === 'payment') { document.getElementById('payment-section').style.display = 'block'; }
+// ▼ slidersForNotSelected: 他の要因 (noClamp=false) => 従来通りクランプ
+const slidersForNotSelected = [
+  // distance-other
+  { left:'slider1-other-left', right:'slider1-other-right', range:'range1-other',
+    min:1, max:60, output:'output1-other',
+    unit:'分', unlimited:true, customStep:'distance',
+    original:10, noClamp:false
+  },
+  // time-other
+  { left:'slider2-other-left', right:'slider2-other-right', range:'range2-other',
+    min:10, max:240, output:'output2-other',
+    unit:'分', unlimited:true, step:10,
+    original:120, noClamp:false
+  },
+  // count-other
+  { left:'slider3-other-left', right:'slider3-other-right', range:'range3-other',
+    min:1, max:12, output:'output3-other',
+    unit:'回', unlimited:true, step:1,
+    original:2, noClamp:false
+  },
+  // pay-other
+  { left:'slider4-other-left', right:'slider4-other-right', range:'range4-other',
+    min:0, max:3000, output:'output4-other',
+    unit:'円', unlimited:false, step:100,
+    original:0, noClamp:false
+  }
+];
+
+// 特殊step for distance
+const distanceAllowedValues = [1,5,10,15,20,25,30,35,40,45,50,55,60];
+
+document.addEventListener('DOMContentLoaded', ()=>{
+  slidersForSelected.forEach(cfg=>{
+    let sec= document.getElementById(cfg.range);
+    if(sec && sec.parentElement.offsetParent !== null){
+      makeDraggable(cfg);
+    }
+  });
+  slidersForNotSelected.forEach(cfg=>{
+    let sec= document.getElementById(cfg.range);
+    if(sec && sec.parentElement.offsetParent !== null){
+      makeDraggable(cfg);
+    }
   });
 
-  function stepRound(value, config) {
-    // 移動距離のみ特別(1 + 5分刻み)
-    if (config.customStep === 'distance') {
-      let closest = distanceAllowedValues[0];
-      let minDiff = Math.abs(value - closest);
-      for (let v of distanceAllowedValues) {
-        let diff = Math.abs(value - v);
-        if (diff < minDiff) {
-          minDiff = diff;
-          closest = v;
-        }
-      }
-      return closest;
-    } else {
-      // 通常のstep処理
-      let stepped = Math.round((value - config.min) / config.step) * config.step + config.min;
-      if (stepped > config.max) stepped = config.max;
-      if (stepped < config.min) stepped = config.min;
-      return stepped;
+  document.getElementById('confirmButton').addEventListener('click', confirmAndGo);
+});
+
+function distanceStepRound(val){
+  let best = distanceAllowedValues[0];
+  let bestDiff = Math.abs(val - best);
+  for(let d of distanceAllowedValues){
+    let diff= Math.abs(val-d);
+    if(diff< bestDiff){
+      bestDiff=diff; best=d;
     }
   }
+  return best;
+}
+function stepRound(val, min, max, st){
+  let stepped = Math.round((val-min)/st)* st + min;
+  if(stepped< min) stepped=min;
+  if(stepped> max) stepped=max;
+  return stepped;
+}
 
-  function makeDraggable(sliderConfig) {
-    const leftSlider = document.getElementById(sliderConfig.left);
-    const rightSlider = document.getElementById(sliderConfig.right);
-    const range = document.getElementById(sliderConfig.range);
-    const output = document.getElementById(sliderConfig.output);
-    const container = leftSlider.parentElement;
+function makeDraggable(cfg){
+  const leftS  = document.getElementById(cfg.left);
+  const rightS = document.getElementById(cfg.right);
+  const rangeElm= document.getElementById(cfg.range);
+  const outElm= document.getElementById(cfg.output);
+  const container= leftS.parentElement;
+  if(!container || container.offsetWidth===0) return;
 
-    if (container.offsetWidth === 0) return;
+  const containerWidth= container.clientWidth;
+  const handleWidth   = leftS.offsetWidth;
+  const availableWidth= containerWidth- handleWidth;
 
-    const containerWidth = container.clientWidth;
-    const handleWidth = leftSlider.offsetWidth;
-    const availableWidth = containerWidth - handleWidth;
+  let isDragging=false, currentHandle;
+  let startX=0, startLeft=0;
 
-    let isDragging = false, currentSlider;
-    let startX = 0, startLeft = 0;
-
-    function positionToValue(pos) {
-      const ratio = pos / availableWidth;
-      let value = sliderConfig.min + (sliderConfig.max - sliderConfig.min) * ratio;
-      return stepRound(value, sliderConfig);
+  function pxToVal(px){
+    if(px<0) px=0;
+    if(px>availableWidth) px=availableWidth;
+    let ratio= px/ availableWidth;
+    let raw= cfg.min + ratio*(cfg.max- cfg.min);
+    if(cfg.customStep==='distance'){
+      return distanceStepRound(raw);
+    } else if(cfg.step){
+      return stepRound(raw, cfg.min, cfg.max, cfg.step);
+    } else {
+      // default=1
+      return Math.round(raw);
     }
+  }
+  function valToPx(val){
+    if(val< cfg.min) val= cfg.min;
+    if(val> cfg.max) val= cfg.max;
+    let ratio= (val - cfg.min)/(cfg.max- cfg.min);
+    return ratio* availableWidth;
+  }
 
-    function isRightAtMaxPos(pos) {
-      return Math.abs(pos - availableWidth) < 0.0001;
-    }
+  // 左右端に初期配置
+  leftS.style.left='0px';
+  rightS.style.left= availableWidth+'px';
+  updateRange();
 
-    function updateRange() {
-      const leftPos = parseFloat(leftSlider.style.left) || 0;
-      const rightPos = parseFloat(rightSlider.style.left) || availableWidth;
-
-      range.style.left = `${leftPos}px`;
-      range.style.width = `${rightPos - leftPos}px`;
-
-      const leftVal = positionToValue(leftPos);
-      const rightVal = positionToValue(rightPos);
-
-      let rightValText;
-      let rightHandleValueElem = rightSlider.querySelector('.handle-value');
-      if (sliderConfig.unlimited) {
-        if (isRightAtMaxPos(rightPos)) {
-          rightValText = "上限なし";
-          rightHandleValueElem.classList.add('unlimited');
-        } else {
-          rightValText = `${rightVal}${sliderConfig.unit}`;
-          rightHandleValueElem.classList.remove('unlimited');
-        }
-      } else {
-        rightValText = `${rightVal}${sliderConfig.unit}`;
-        rightHandleValueElem.classList.remove('unlimited');
-      }
-
-      if (sliderConfig.unlimited && rightValText === "上限なし") {
-        output.textContent = `${leftVal}${sliderConfig.unit} 〜 上限なし`;
-      } else {
-        output.textContent = `${leftVal}${sliderConfig.unit} 〜 ${rightValText}`;
-      }
-
-      leftSlider.querySelector('.handle-value').textContent = `${leftVal}${sliderConfig.unit}`;
-      rightHandleValueElem.textContent = rightValText;
-
-      updateSelectedConditions();
-    }
-
-    function onMouseMove(e) {
-      if (!isDragging) return;
-      const dx = e.clientX - startX;
-      const leftPos = parseFloat(leftSlider.style.left) || 0;
-      const rightPos = parseFloat(rightSlider.style.left) || availableWidth;
-
-      if (currentSlider === leftSlider) {
-        const newLeft = Math.max(0, Math.min(startLeft + dx, rightPos - handleWidth));
-        leftSlider.style.left = `${newLeft}px`;
-      } else if (currentSlider === rightSlider) {
-        let newLeft = Math.min(availableWidth, Math.max(startLeft + dx, leftPos + handleWidth));
-        if (sliderConfig.unlimited) {
-          if (newLeft > (availableWidth - snapThreshold)) {
-            newLeft = availableWidth;
-          }
-        }
-        rightSlider.style.left = `${newLeft}px`;
-      }
-      updateRange();
-    }
-
-    function onMouseUp() {
-      isDragging = false;
-      document.body.style.cursor = 'default';
-      document.removeEventListener('mousemove', onMouseMove);
-      document.removeEventListener('mouseup', onMouseUp);
-    }
-
-    [leftSlider, rightSlider].forEach(slider => {
-      slider.addEventListener('mousedown', (e) => {
-        isDragging = true;
-        currentSlider = slider;
-        startX = e.clientX;
-        startLeft = parseFloat(slider.style.left) || 0;
-        document.body.style.cursor = 'grabbing';
-        document.addEventListener('mousemove', onMouseMove);
-        document.addEventListener('mouseup', onMouseUp);
-      });
+  [leftS,rightS].forEach(h=>{
+    h.addEventListener('mousedown',(e)=>{
+      isDragging=true;
+      currentHandle=h;
+      startX= e.clientX;
+      startLeft= parseFloat(h.style.left)||0;
+      document.body.style.cursor='grabbing';
+      document.addEventListener('mousemove', onMouseMove);
+      document.addEventListener('mouseup', onMouseUp);
     });
+  });
 
-    // 初期は左右端（0pxとavailableWidth）に配置
-    leftSlider.style.left = `0px`;
-    rightSlider.style.left = `${availableWidth}px`;
+  function onMouseMove(e){
+    if(!isDragging) return;
+    const dx= e.clientX- startX;
+    const lPx= parseFloat(leftS.style.left)||0;
+    const rPx= parseFloat(rightS.style.left)||0;
+
+    if(currentHandle=== leftS){
+      let newLeft= Math.max(0, Math.min(startLeft+dx, rPx- handleWidth));
+
+      // ※ 満足条件(noClamp=true) ⇒ クランプしない
+      //    他の要因(noClamp=false) ⇒ クランプする
+      if(!cfg.noClamp){
+        let limitPx= valToPx( (cfg.original<cfg.min)? cfg.min : cfg.original );
+        if(newLeft> limitPx) newLeft= limitPx;
+      }
+
+      leftS.style.left= newLeft+'px';
+    } else {
+      let newRight= Math.min(availableWidth, Math.max(startLeft+dx, lPx+ handleWidth));
+
+      if(!cfg.noClamp){
+        let limitPx= valToPx( (cfg.original>cfg.max)? cfg.max : cfg.original );
+        if(newRight< limitPx) newRight= limitPx;
+      }
+
+      rightS.style.left= newRight+'px';
+    }
     updateRange();
   }
 
-  document.addEventListener('DOMContentLoaded', () => {
-    sliders.forEach(makeDraggable);
-  });
+  function onMouseUp(){
+    isDragging=false;
+    document.body.style.cursor='default';
+    document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseup', onMouseUp);
+  }
 
-  function formatRangeText(rangeText) {
-    if (!rangeText.includes('〜')) return rangeText;
-    const parts = rangeText.split('〜');
-    if (parts.length === 2) {
-      const leftVal = parts[0].trim();
-      const rightVal = parts[1].trim();
-      if (leftVal === rightVal) return leftVal;
-      return leftVal + '〜' + rightVal;
+  function updateRange(){
+    let lPx= parseFloat(leftS.style.left)||0;
+    let rPx= parseFloat(rightS.style.left)|| availableWidth;
+    rangeElm.style.left= lPx+'px';
+    rangeElm.style.width=(rPx- lPx)+'px';
+
+    let lVal= pxToVal(lPx);
+    let rVal= pxToVal(rPx);
+
+    let show;
+    if(lVal===rVal){
+      show= lVal + (cfg.unit||'');
+    } else {
+      show= lVal + (cfg.unit||'') +'〜'+ rVal + (cfg.unit||'');
     }
-    return rangeText;
+    outElm.textContent= show;
+    leftS.querySelector('.handle-value').textContent= lVal+(cfg.unit||'');
+    rightS.querySelector('.handle-value').textContent= rVal+(cfg.unit||'');
   }
+}
 
-  function updateSelectedConditions() {
-    const distVal = (document.getElementById('distance-section').style.display !== 'none'
-      && document.getElementById('output1').textContent) || defaultDistance;
-    const timeVal = (document.getElementById('time-section').style.display !== 'none'
-      && document.getElementById('output2').textContent) || defaultTime;
-    const countVal = (document.getElementById('count-section').style.display !== 'none'
-      && document.getElementById('output3').textContent) || defaultCount;
-    const payVal = (document.getElementById('payment-section').style.display !== 'none'
-      && document.getElementById('output4').textContent) || defaultPay;
-
-    let html = '<strong>現在選択中の条件:</strong><br>';
-    html += `1. 活動場所までの移動時間： 徒歩${formatRangeText(distVal)}<br>`;
-    html += `2. 一回の活動時間： ${formatRangeText(timeVal)}<br>`;
-    html += `3. 年間の活動回数： ${formatRangeText(countVal)}<br>`;
-    html += `4. 活動参加によって得られる謝礼： ${formatRangeText(payVal)}<br>`;
-
-    document.getElementById('selected-conditions').innerHTML = html;
-  }
-
-  // 「次に進む」で confirm.html に遷移
-  document.getElementById('confirmButton').addEventListener('click', () => {
-    const distVal = (document.getElementById('distance-section').style.display !== 'none'
-      && document.getElementById('output1').textContent) || defaultDistance;
-    const timeVal = (document.getElementById('time-section').style.display !== 'none'
-      && document.getElementById('output2').textContent) || defaultTime;
-    const countVal = (document.getElementById('count-section').style.display !== 'none'
-      && document.getElementById('output3').textContent) || defaultCount;
-    const payVal = (document.getElementById('payment-section').style.display !== 'none'
-      && document.getElementById('output4').textContent) || defaultPay;
-
-    const paramObj = {
-      dist: distVal,
-      time: timeVal,
-      count: countVal,
-      pay: payVal
-    };
-    const searchParams = new URLSearchParams(paramObj);
-    location.href = 'confirm.html?' + searchParams.toString();
-  });
+// 「次に進む」で confirm.html 等に値を渡す(例)
+function confirmAndGo(){
+  alert("次へ進みます（サンプル）");
+  // 必要に応じて location.href='confirm.html' など
+}
 </script>
 
 </body>

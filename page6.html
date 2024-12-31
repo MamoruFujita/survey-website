@@ -510,12 +510,60 @@ function makeDraggable(cfg){
   }
 }
 
-// 「次に進む」で confirm.html 等に値を渡す(例)
+document.getElementById('confirmButton').addEventListener('click', confirmAndGo);
+
+// ▼ 変更ポイント: confirmAndGo関数で「参加を躊躇う要因」と「他の要因」の両方を確認して統合
 function confirmAndGo(){
-  alert("次へ進みます（サンプル）");
-  // 必要に応じて location.href='confirm.html' など
+  // ----------------------------------
+  // 1. 移動距離 dist
+  // ----------------------------------
+  // output1 が空文字でなければ、それを優先。空なら output1-other を使う
+  const distMain  = document.getElementById('output1')?.textContent.trim() || '';
+  const distOther = document.getElementById('output1-other')?.textContent.trim() || '';
+  const dist = distMain !== '' ? distMain : distOther;
+
+  // ----------------------------------
+  // 2. 作業時間 time
+  // ----------------------------------
+  const timeMain  = document.getElementById('output2')?.textContent.trim() || '';
+  const timeOther = document.getElementById('output2-other')?.textContent.trim() || '';
+  const time = timeMain !== '' ? timeMain : timeOther;
+
+  // ----------------------------------
+  // 3. 年間の活動回数 count
+  // ----------------------------------
+  const countMain  = document.getElementById('output3')?.textContent.trim() || '';
+  const countOther = document.getElementById('output3-other')?.textContent.trim() || '';
+  const count = countMain !== '' ? countMain : countOther;
+
+  // ----------------------------------
+  // 4. 謝礼 pay
+  // ----------------------------------
+  const payMain  = document.getElementById('output4')?.textContent.trim() || '';
+  const payOther = document.getElementById('output4-other')?.textContent.trim() || '';
+  const pay = payMain !== '' ? payMain : payOther;
+
+  // ----------------------------------
+  // 5. パラメータにまとめて confirm.html へ飛ばす
+  // ----------------------------------
+  const paramObj = { dist, time, count, pay };
+  const searchParams = new URLSearchParams(paramObj);
+  location.href = 'confirm.html?' + searchParams.toString();
 }
 </script>
-
+<div style="
+  position: fixed; 
+  right: 10px; 
+  bottom: 10px; 
+  background: rgba(255,0,0,0.1); 
+  color: #c00; 
+  padding: 8px 12px; 
+  border-radius: 4px; 
+  font-size: 12px; 
+  z-index: 9999;">
+  ボランティア活動アンケート2024<br>藤田シミュレーション v0.2.0-beta
+  <br>
+  <small>予告なく変更される場合があります</small>
+</div>
 </body>
 </html>

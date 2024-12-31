@@ -33,8 +33,6 @@
     cursor: pointer; /* ホバー時にポインターに */
     transition: background-color 0.3s ease, transform 0.2s ease; /* ホバー時のアニメーション */
   }
-
-  /* ボタンホバー時の効果 */
   .large-button:hover {
     background-color: #45a049; /* ホバー時の背景色 */
     transform: scale(1.05); /* ホバー時にボタンを少し大きく */
@@ -43,10 +41,18 @@
   /* レスポンシブデザインの調整 */
   @media (max-width: 768px) {
     .large-button {
-      width: 100%; /* 小さい画面ではボタンを幅いっぱいに */
-      padding: 12px 0; /* パディングを調整 */
-      font-size: 1em; /* フォントサイズを調整 */
+      width: 100%;
+      padding: 12px 0;
+      font-size: 1em;
     }
+  }
+
+  /* バージョン情報のフッター */
+  footer {
+    margin-top: 50px; /* 上部との余白を確保 */
+    text-align: center;
+    font-size: 12px;
+    color: #777;
   }
 </style>
 </head>
@@ -69,6 +75,22 @@
     <button type="button" class="large-button" onclick="location.href='page2.html'">次に進む</button>
   </div>
 </div>
+
+<div style="
+  position: fixed; 
+  right: 10px; 
+  bottom: 10px; 
+  background: rgba(255,0,0,0.1); 
+  color: #c00; 
+  padding: 8px 12px; 
+  border-radius: 4px; 
+  font-size: 12px; 
+  z-index: 9999;">
+  ボランティア活動アンケート2024<br>藤田シミュレーション v0.2.0-beta
+  <br>
+  <small>予告なく変更される場合があります</small>
+</div>
+
 
 </body>
 </html>

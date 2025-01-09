@@ -43,13 +43,13 @@
 <div class="page-container">
   <p><strong>■参加条件についての質問（謝礼なし）</strong></p>
   <p>
-    仮に、以下の条件で清掃ボランティア活動が実施されるとします。<br>
-    清掃活動の条件：<br>
+    仮に、以下の条件で清掃ボランティア活動が実施されるとします。<br><br>
+    清掃活動の実施条件：<br><b>
     1. 活動場所までの移動時間： 徒歩10分<br>
-    2. 一回の活動時間： 120分<br>
+    2. 一回あたりの活動時間： 120分<br>
     3. 年間の活動回数： 2回（春・秋）<br>
-    4. 活動参加によって得られる謝礼： なし<br>
-    ただし、参加人数については活動をするうえで差し支えなく集まるものとします。
+    4. 活動参加によって得られる謝礼： なし<br></b>
+    ※参加人数については活動をするうえで差し支えなく集まるものとします。
   </p>
 
   <div class="question">
@@ -57,7 +57,12 @@
     <div class="options">
       <!-- 参加したい -->
       <div class="option-item">
-        <label><input type="radio" name="q6" value="参加したい" onclick="toggleQ7(false)"> 参加したい</label>
+        <label><input type="radio" name="q6" value="参加したい" onclick="toggleQ7(false)"> ぜひ参加したい</label>
+      </div>
+
+      <!-- 参加してもよい -->
+      <div class="option-item">
+        <label><input type="radio" name="q6" value="参加してもよい" onclick="toggleQ7(false)"> 参加してもよい</label>
       </div>
 
       <!-- 参加したくない(理由を選ぶ) -->
@@ -74,7 +79,7 @@
 
   <!-- 参加したくない(理由を選ぶ) を選んだ場合のみ表示する問7 -->
   <div id="q7-container" class="question">
-    <span class="question-label">【問７】前の質問の条件のうち、参加をためらう要因となる項目をすべて選んでください。（複数選択可）</span>
+    <span class="question-label">【問７】清掃活動の実施条件のうち、参加をためらう要因となる項目をすべて選んでください。（複数選択可）</span>
     <div class="options">
       <div class="option-item">
         <label><input type="checkbox" name="q7[]" value="distance"> 活動場所までの移動時間</label>

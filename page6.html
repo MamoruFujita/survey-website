@@ -124,18 +124,20 @@
 <div class="page-container">
 
   <!-- (A) 「チェックされた要因」用セクション -->
-  <div class="section-title">■参加をためらう要因（満足条件を具体的に選択）</div>
+  
   <p><b>【問８】参加をためらう要因として選んだ項目について、ご自身が満足する条件を具体的にお答えください。</b></p>
+  <span style="color:blue;">左ハンドル</span>を「これより小さい(短い/少ない)と参加しにくい」下限、<br>
+    <span style="color:red;">右ハンドル</span>を「これより大きい(長い/多い)と参加しにくい」上限としてお答えください。
   <p>参考：清掃活動の条件<br>
     1. 活動場所までの移動時間： 徒歩10分<br>
-    2. 一回の活動時間： 120分<br>
+    2. 一回あたりの活動時間： 120分<br>
     3. 年間の活動回数： 2回（春・秋）<br>
     4. 活動参加によって得られる謝礼： なし (0円相当)
   </p>
 
   <!-- 移動距離スライダ (チェックされた要因) -->
   <div id="distance-section" class="slider-section">
-    <div class="slider-label">移動距離（1〜60分）</div>
+    <div class="slider-label">1. 活動場所までの移動時間（徒歩1〜60分から選択可能）</div>
     <div class="slider-row">
       <div class="slider-container">
         <div id="range1" class="range"></div>
@@ -145,14 +147,14 @@
         <div class="marker" style="left:15.3%;"></div>
       </div>
       <div class="slider-output">
-        選択範囲: <span id="output1"></span>
+        参加可能な範囲: <span id="output1"></span>
       </div>
     </div>
   </div>
 
   <!-- 作業時間スライダ (チェックされた要因) -->
   <div id="time-section" class="slider-section">
-    <div class="slider-label">作業時間（10〜240分）</div>
+    <div class="slider-label">2. 一回あたりの活動時間（10〜240分から選択可能）</div>
     <div class="slider-row">
       <div class="slider-container">
         <div id="range2" class="range"></div>
@@ -161,14 +163,14 @@
         <div class="marker" style="left:47.8%;"></div>
       </div>
       <div class="slider-output">
-        選択範囲: <span id="output2"></span>
+        参加可能な範囲: <span id="output2"></span>
       </div>
     </div>
   </div>
 
   <!-- 回数スライダ (チェックされた要因) -->
   <div id="count-section" class="slider-section">
-    <div class="slider-label">年間の活動回数（1〜12回）</div>
+    <div class="slider-label">3. 年間の活動回数（1〜12回から選択可能）</div>
     <div class="slider-row">
       <div class="slider-container">
         <div id="range3" class="range"></div>
@@ -177,14 +179,14 @@
         <div class="marker" style="left:9.09%;"></div>
       </div>
       <div class="slider-output">
-        選択範囲: <span id="output3"></span>
+        参加可能な範囲: <span id="output3"></span>
       </div>
     </div>
   </div>
 
   <!-- 謝礼スライダ (チェックされた要因) -->
   <div id="payment-section" class="slider-section">
-    <div class="slider-label">謝礼（100〜3000円）</div>
+    <div class="slider-label">4. 活動参加によって得られる謝礼（100〜3000円から選択可能）</div>
     <div class="slider-row">
       <div class="slider-container">
         <div id="range4" class="range"></div>
@@ -193,21 +195,21 @@
         <div class="marker" style="left:0%;"></div>
       </div>
       <div class="slider-output">
-        選択範囲: <span id="output4"></span>
+        参加可能な範囲: <span id="output4"></span>
       </div>
     </div>
   </div>
 
   <!-- (B) 他の要因も(チェックされなかった要因)表示 -->
-  <div class="section-title">■他の要因（未選択だが仮定条件を含むように調整可能）</div>
-  <p>チェックされなかった要因も、条件次第では参加を断念する場合があるかもしれません。<br>
-    そこで各項目について、<span style="color:blue;">左ハンドル</span>を「これより小さい(短い/少ない)と参加しにくい」下限、<br>
+  
+  <p>一方で、参加をためらう要因としてチェックされなかった項目も、条件次第では参加を断念する場合があるかもしれません。<br>
+    そこで、各項目について、<span style="color:blue;">左ハンドル</span>を「これより小さい(短い/少ない)と参加しにくい」下限、<br>
     <span style="color:red;">右ハンドル</span>を「これより大きい(長い/多い)と参加しにくい」上限としてお答えください。<br>
-    <br>※清掃活動の元条件を下回らない・上回らない範囲で調整してください。</p>
+    <br>※清掃活動の元条件を下回らない・上回らない範囲で調整可能です。</p>
 
   <!-- 移動距離スライダ(他の要因) -->
   <div id="distance-other" class="slider-section">
-    <div class="slider-label">移動距離（1〜60分）</div>
+    <div class="slider-label">1. 活動場所までの移動時間（徒歩1〜60分から選択可能）</div>
     <div class="slider-row">
       <div class="slider-container">
         <div id="range1-other" class="range"></div>
@@ -215,14 +217,14 @@
         <div id="slider1-other-right" class="slider-handle right-handle"><span class="handle-value"></span></div>
       </div>
       <div class="slider-output">
-        選択範囲: <span id="output1-other"></span>
+        参加可能な範囲: <span id="output1-other"></span>
       </div>
     </div>
   </div>
 
   <!-- 作業時間スライダ(他の要因) -->
   <div id="time-other" class="slider-section">
-    <div class="slider-label">作業時間（10〜240分）</div>
+    <div class="slider-label">2. 一回あたりの活動時間（10〜240分から選択可能）</div>
     <div class="slider-row">
       <div class="slider-container">
         <div id="range2-other" class="range"></div>
@@ -230,14 +232,14 @@
         <div id="slider2-other-right" class="slider-handle right-handle"><span class="handle-value"></span></div>
       </div>
       <div class="slider-output">
-        選択範囲: <span id="output2-other"></span>
+        参加可能な範囲: <span id="output2-other"></span>
       </div>
     </div>
   </div>
 
   <!-- 回数スライダ(他の要因) -->
   <div id="count-other" class="slider-section">
-    <div class="slider-label">年間の活動回数（1〜12回）</div>
+    <div class="slider-label">3. 年間の活動回数（1〜12回から選択可能）</div>
     <div class="slider-row">
       <div class="slider-container">
         <div id="range3-other" class="range"></div>
@@ -245,14 +247,14 @@
         <div id="slider3-other-right" class="slider-handle right-handle"><span class="handle-value"></span></div>
       </div>
       <div class="slider-output">
-        選択範囲: <span id="output3-other"></span>
+        参加可能な範囲: <span id="output3-other"></span>
       </div>
     </div>
   </div>
 
   <!-- 謝礼スライダ(他の要因) -->
   <div id="payment-other" class="slider-section">
-    <div class="slider-label">謝礼（100〜3000円）</div>
+    <div class="slider-label">4. 活動参加によって得られる謝礼（100〜3000円から選択可能）</div>
     <div class="slider-row">
       <div class="slider-container">
         <div id="range4-other" class="range"></div>
@@ -260,7 +262,7 @@
         <div id="slider4-other-right" class="slider-handle right-handle"><span class="handle-value"></span></div>
       </div>
       <div class="slider-output">
-        選択範囲: <span id="output4-other"></span>
+        参加可能な範囲: <span id="output4-other"></span>
       </div>
     </div>
   </div>
